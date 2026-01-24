@@ -1,0 +1,16 @@
+npm i express dotenv cors helmet morgan @neondatabase/serverless @arcjet/node
+
+
+express -> app
+dotenv
+cors
+helmet + morgan -> best practice stuff
+@neondatabase/serverless -> database cloud management / connection
+@arcjet/node -> bot detection
+
+
+for "import ____ from "____"", in package.json under authors, put "type": "module",
+
+nodemon -D -> dev package for constant updates
+
+axios for requests
