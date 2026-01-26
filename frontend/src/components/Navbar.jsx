@@ -16,21 +16,21 @@ function Navbar() {
                           <div className="flex items-center gap-2">
                               <ShoppingCartIcon className="size-9 text-primary" />
                               <span className="font-semibold font-mono tracking-widest text-2xl bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">
-                                  POSGRESTORE
+                                  POSTGRESTORE
                               </span>
                           </div>
                       </Link>
                   </div>
                   <div className="flex items-center gap-4">
                     <ThemeSelector />
-                    {isHomePage && (
+                    {/* {isHomePage && (
                         <div className="indicator">
                             <div className="p-2 rounded-full hover:bg-base-200 transition-colors">
                                 <ShoppingBagIcon className="size-5" />
                                 <span className="badge badge-sm badge-primary indicator-item">8</span>
                             </div>
                         </div>
-                    )}
+                    )} */}
                  </div>
               </div>
           </div>

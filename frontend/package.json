@@ -11,11 +11,15 @@
   },
   "dependencies": {
     "axios": "^1.13.2",
+    "build": "^0.1.4",
     "lucide-react": "^0.563.0",
+    "npm": "^11.8.0",
+    "pern-app": "file:..",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-hot-toast": "^2.6.0",
     "react-router-dom": "^7.13.0",
+    "run": "^1.5.0",
     "zustand": "^5.0.10"
   },
   "devDependencies": {
