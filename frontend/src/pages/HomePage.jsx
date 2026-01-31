@@ -4,7 +4,7 @@ import { PlusCircleIcon, RefreshCwIcon, PackageIcon } from "lucide-react";
 import ProductCard from "../components/ProductCard.jsx";
 import AddProductModel from "../components/AddProductModel.jsx";
 
-function HomePage() {
+function HomePage({setWishlistCount}) {
   const {products, loading, error, fetchProducts} = useProductStore();
 
   useEffect(() => {
@@ -48,7 +48,7 @@ function HomePage() {
       ): (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {products.map(product => (
-            <ProductCard key={product.id} product={product} />
+            <ProductCard key={product.id} product={product} setWishlistCount={setWishlistCount}/>
           ))}
         </div>
       )}

@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { ArrowLeftIcon, SaveIcon, Trash2Icon } from "lucide-react";
 
 function ProductPage() {
-  const { currentProduct, formData, setFormData, loading, error, fetchProduct, updateProduct, deleteProduct } = useProductStore();
+  const { currentProduct, formData, setFormData, loading, fetchProduct, updateProduct, deleteProduct } = useProductStore();
   const navigate = useNavigate();
   const { id } = useParams();
 

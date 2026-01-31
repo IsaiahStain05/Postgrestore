@@ -7,6 +7,7 @@ import productRoutes from "./routes/productRoutes.js"
 import {sql} from "./config/db.js"
 import { aj } from "./lib/arcjet.js"
 import path from "path";
+import wishlistRouter from "./routes/wishlistRoutes.js"
 
 const __dirname = path.resolve();
 
@@ -15,7 +16,17 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(helmet({contentSecurityPolicy: false}));                  // helmet is a security middleware that helps you protect your app by setting various HTTP headers (USE ALWAYS)
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      defaultSrc: ["'self'"], 
+      connectSrc: ["'self'"], // <--- This fixes your specific error
+      scriptSrc: ["'self'", "https://cdn.jsdelivr.net"], // Allow Bootstrap JS
+      styleSrc: ["'self'", "https://cdn.jsdelivr.net", "'unsafe-inline'"], // Allow Bootstrap CSS
+      imgSrc: ["'self'", "data:", "https://images.unsplash.com",],
+    },
+  })
+);              // helmet is a security middleware that helps you protect your app by setting various HTTP headers (USE ALWAYS)
 app.use(morgan("dev"));             // Will log the requests to the console
 app.use(express.json());
 app.use(cors());
@@ -52,6 +63,8 @@ app.use(async (req, res, next) => {
 })
 
 app.use("/api/products", productRoutes)
+app.use("/wishlist", wishlistRouter)
+
 
 if (process.env.NODE_ENV === "production") {
     app.use(express.static(path.join(__dirname, "/frontend/dist")));
@@ -68,8 +81,9 @@ async function initDB() {
                 name VARCHAR(255) NOT NULL,
                 image VARCHAR(255) NOT NULL,
                 price DECIMAL(10,2) NOT NULL,
-                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-            )
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                wishlist BOOLEAN NOT NULL DEFAULT false
+            );
         `; // Use TIMESTAMP instead of DATETIME and CURRENT_TIMESTAMP instead of NOW() - This allows for time zone change automatically
         console.log("Database Initialized Successfully")
     } catch (err) {

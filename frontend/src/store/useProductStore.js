@@ -1,7 +1,6 @@
 import { create } from "zustand";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
 
 // base url will be dynamic depending on the environment
 const BASE_URL = import.meta.env.MODE === "development" ? "http://localhost:3000" : ""
@@ -28,9 +27,9 @@ export const useProductStore = create((set, get) => ({
             set({products: response.data.data, error: null});
         } catch (err) {
             if(err.status === 429){
-                set({error: "Too many requests", products: []});
+                set({error: "Too many requests"});
             } else {
-                set({error: err, products: []});
+                set({error: err});
             }
         } finally {
             set({loading: false});
@@ -68,6 +67,7 @@ export const useProductStore = create((set, get) => ({
             toast.success("Product added successfully!");
         } catch (err) {
             toast.error("Something went wrong adding your product!");
+            console.log(err)
         } finally {
             set({loading: false})
         }
@@ -93,6 +93,7 @@ export const useProductStore = create((set, get) => ({
             toast.success("Successfully updated product!");
         } catch (err) {
             toast.error("Something went wrong updating your product!")
+            console.log(err)
         } finally {
             set({loading: false})
         }

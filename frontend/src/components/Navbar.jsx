@@ -2,10 +2,10 @@ import { Link, useResolvedPath } from "react-router-dom";
 import { ShoppingCartIcon, ShoppingBagIcon } from "lucide-react";
 import ThemeSelector from "./ThemeSelector.jsx";
 import { useThemeStore } from "../store/useThemeStore.js";
+import { WishlistButton} from "./wishlist.jsx";
 
-function Navbar() {
+function Navbar({wishlistCount}) {
     const {pathname} = useResolvedPath();
-    const isHomePage = pathname === "/"
 
     return (
       <div className="bg-base-100/80 backdrop-blur-lg border-b border-base-content/10 sticky top-0 z-50">
@@ -23,14 +23,15 @@ function Navbar() {
                   </div>
                   <div className="flex items-center gap-4">
                     <ThemeSelector />
-                    {/* {isHomePage && (
-                        <div className="indicator">
-                            <div className="p-2 rounded-full hover:bg-base-200 transition-colors">
-                                <ShoppingBagIcon className="size-5" />
+                     { /* {isHomePage && (
+                        <div className="indicator rounded-full hover:bg-base-200 transition-colors">
+                            <div className="btn btn-sm btn-circle">
+                                <ShoppingBagIcon className="size-4" />
                                 <span className="badge badge-sm badge-primary indicator-item">8</span>
                             </div>
                         </div>
-                    )} */}
+                    )} */ }
+                    <WishlistButton wishlistCount={wishlistCount}/>
                  </div>
               </div>
           </div>

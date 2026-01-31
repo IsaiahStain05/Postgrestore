@@ -1,14 +1,24 @@
-import { EditIcon, Trash2Icon } from "lucide-react";
-import { Link } from "react-router-dom";
+import { EditIcon, Trash2Icon, ShoppingBagIcon } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
+import { useProductStore } from "../store/useProductStore.js";
+import axios from "axios";
+
+const BASE_URL = import.meta.env.MODE === "development" ? "http://localhost:3000" : ""
 
 
-function ProductCard({product}) {
+function ProductCard({product, setWishlistCount}) {
+  const { deleteProduct, fetchProducts } = useProductStore();
+  const navigate = useNavigate();
   const handleDelete = async () => {
-    const navigate
     if(window.confirm("Are you sure you want to delete this product?")){
-      await deleteProduct(id);
+      await deleteProduct(product.id);
+      await fetchProducts();
       navigate("/");
     }
+  }
+  const handleAdd = async () => {
+    await axios.put(`${BASE_URL}/wishlist/count/${product.id}`)
+    setWishlistCount(prev => prev + 1)
   }
   return (
     <div className="card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow duration-300">
@@ -21,6 +31,9 @@ function ProductCard({product}) {
         <p className="text-2xl font-bold text-primary">${Number(product.price).toFixed(2)}</p>
 
         <div className="card-actions justify-end mt-4">
+            <button className="btn btn-sm btn-success btn-outline text-center" onClick={handleAdd}>    {/* Add onClick={addProductToCart} */}
+              <ShoppingBagIcon className="size-4"/>
+            </button>
             <Link to={`/product/${product.id}`} className="btn btn-sm btn-info btn-outline">
                 <EditIcon className="size-4" />
             </Link>
